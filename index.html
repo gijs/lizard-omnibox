@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Lizard 5 - Omnibox Spike</title>
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
 <link rel="stylesheet" href="omnibox.css" />
@@ -8,6 +9,8 @@
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+<script src="js/keypress.js"></script>
+<script src="js/oridomi.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap-tabs.js"></script>
 <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
@@ -44,11 +47,11 @@
 
 <div id="cards" class="cards-shadow" style="top: 48px; clip: rect(-10px 500px 2000px -10px); height: 116px; overflow: hidden;" tabindex="-1">
 
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs" id="omnitab">
       <li><a href="#apps" data-toggle="tab" onclick="javascript:setHeight(300);" title="Apps"><i class="icon-th icon-large"></i></a></li>
-      <li><a href="#thema" data-toggle="tab" onclick="javascript:setHeight(250);" title="Themakaarten"><i class="icon-globe icon-large"></i></a></li>
-      <li><a href="#legenda" data-toggle="tab" onclick="javascript:setHeight(190);" title="Legenda"><i class="icon-reorder icon-large"></i></a></li>
-      <li><a href="#kaart" data-toggle="tab" onclick="javascript:setHeight(180);" title="Kaartlagen"><i class="icon-map-marker icon-large"></i></a></li>
+      <li><a href="#thema" data-toggle="tab" onclick="javascript:setHeight(230);" title="Themakaarten"><i class="icon-globe icon-large"></i></a></li>
+      <li><a href="#legenda" data-toggle="tab" onclick="javascript:setHeight(160);" title="Legenda"><i class="icon-reorder icon-large"></i></a></li>
+      <li><a href="#kaart" data-toggle="tab" onclick="javascript:setHeight(200);" title="Kaartlagen"><i class="icon-map-marker icon-large"></i></a></li>
       <li><a href="#instellingen" data-toggle="tab" onclick="javascript:setHeight(200);" title="Instellingen"><i class="icon-wrench icon-large"></i></a></li>
       <li><a href="#6" data-toggle="tab" onclick="javascript:setHeight(125);" title="3Di"><img src="img/3di-icon.png"></a></li>
     </ul>
@@ -140,9 +143,9 @@
             </form>          
       </div>
       <div class="tab-pane" id="6">
-      <button type="button" class="btn btn-success"><i class="icon-play icon-large"></i></button>
-      <button type="button" class="btn btn-warning"><i class="icon-pause icon-large"></i></button>
-      <button type="button" class="btn btn-danger"><i class="icon-stop icon-large"></i></button>
+      <button type="button" class="btn btn-success"><i class="icon-play"></i></button>
+      <button type="button" class="btn btn-warning"><i class="icon-pause"></i></button>
+      <button type="button" class="btn btn-danger"><i class="icon-stop"></i></button>
       </div>      
     </div>
 </div>
@@ -151,10 +154,47 @@
 <div id="map"></div>
 <script>
     function setHeight(val) {
-        $('#cards').height(val);
-        $('#cards').animate({height: val + 'px'}, 500);
+        // $('#cards').height(val);
+        $('#cards').animate({height: val + 'px'}, 50);
     }
     $(document).ready(function() {
+
+        // keypress.combo("1", function(e) {
+        //     e.preventDefault();
+        //     console.log("You pressed 1");
+        //     $('#omnitab a:first').tab('show');
+        // });
+
+        // keypress.combo("2", function(e) {
+        //     e.preventDefault();
+        //     console.log("You pressed 2");
+        //     $('#omnitab a:nth-of-type(1)').tab('show');
+        // });
+
+        // keypress.combo("3", function(e) {
+        //     e.preventDefault();
+        //     console.log("You pressed 3");
+            
+        // });
+
+        // keypress.combo("4", function(e) {
+        //     e.preventDefault();
+        //     console.log("You pressed 4");
+            
+        // });
+
+        // keypress.combo("5", function(e) {
+        //     e.preventDefault();
+        //     console.log("You pressed 5");
+            
+        // });                        
+
+        // keypress.combo("6", function(e) {
+        //     e.preventDefault();
+        //     console.log("You pressed 6");
+        //     $('#omnitab a:last').tab('show');
+        // });              
+
         map = L.map(map, {'zoomControl': false}).setView([51.85953150985473,5.4327392578125], 13);
         // new L.Control.Zoom({
         //     'position': 'topright'
