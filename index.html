@@ -189,7 +189,12 @@
                 items.push("<li><a href='#' onclick='chooseAddr(" + bb[0] + ", " + bb[2] + ", " + bb[1] + ", " + bb[3]  + ", \"" + val.osm_type + "\");return false;'>" + val.display_name + '</a></li>');
             });
 
-        $('#results').css('top', $('#cards').height() + 60 + 'px');
+        if($('#cards').is(':visible')) {
+          $('#results').css('top', $('#cards').height() + 60 + 'px');
+        } else {
+          $('#results').css('top', $('#searchbox_form').height() + 30 + 'px');
+        }
+
         $('#results').empty();
         $('#results').show();
 
@@ -237,7 +242,9 @@
             e.preventDefault();
             $('#cards').slideToggle('fast');
             if($('#results').is(':visible')) {
-              $('#results').slideToggle('fast');
+              $('#results').slideUp('fast');
+            } else {
+              $('#results').slideDown('fast');
             }
         });
 
