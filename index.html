@@ -217,11 +217,13 @@
         })
 
         $('#results').hide();
-        keypress.combo("command h", function(e) {
+        keypress.combo("ctrl h", function(e) {
             e.preventDefault();
-            console.log("You pressed command h");
+            console.log("You pressed h");
             $('#cards').slideToggle('fast');
-            $('#results').slideToggle('fast');
+            if($('#results').is(':visible')) {
+              $('#results').slideToggle('fast');
+            }
         });
 
         // keypress.combo("1", function(e) {
