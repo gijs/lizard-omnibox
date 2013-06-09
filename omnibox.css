@@ -313,10 +313,10 @@ div#omnibox {
 #results {
     color: #115e67;
     -webkit-transform: translateZ(0);
-    padding: 0;
+    padding: 15px;
     top: 0;
     z-index: 9;
-    width: 400px;
+    width: 370px;
     outline: none;
     position: absolute;
     background: #FFF;
@@ -328,6 +328,10 @@ div#omnibox {
     -o-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
     transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
     opacity: 1;
+}
+#results ul li {
+    list-style-image:url('img/globe-icon.png');
+    
 }
 
 
