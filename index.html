@@ -231,23 +231,19 @@
     }
 
     $(document).ready(function() {
-
+        var firstload = true;
         $('#searchbox_form').submit(function(e) {
           e.preventDefault();
           addr_search();
         })
 
         $('#results').hide();
-        keypress.combo("ctrl h", function(e) {
+        keypress.combo("ctrl t", function(e) {
             e.preventDefault();
             $('#cards').slideToggle('fast');
-            if($('#results').is(':visible')) {
-              $('#results').slideUp('fast');
-            } else {
-              $('#results').slideDown('fast');
-            }
+            $('#results').empty();
+            $('#results').hide();            
         });
-
         keypress.combo("ctrl s", function(e) {
             e.preventDefault();
             $('#searchboxinput').focus();
