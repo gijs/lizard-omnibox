@@ -11,6 +11,7 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
 <script src="js/keypress.js"></script>
 <script src="js/oridomi.js"></script>
+<script src="js/selectize.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap-tabs.js"></script>
 <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
@@ -155,6 +156,21 @@
 
 <div id="map"></div>
 <script>
+    // Prevent console.log from throwing errors
+    if(typeof(console) === 'undefined') {
+        var console = {};
+        console.log = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function() {};
+    }
+
+    window.addEventListener('shake', shakeEventDidOccur, false);
+
+    function shakeEventDidOccur() {
+        $('#searchboxinput').val("");
+        $('#results').empty();
+        $('#results').slideUp('fast');
+        return true;
+    }    
+
     function setHeight(val) {
         $('#cards').animate({height: val + 'px'}, 50, function(){
         $('#results').css('top', $('#cards').height() + 60 + 'px');  
@@ -165,7 +181,7 @@
     function addr_search() {
         var inp = document.getElementById("searchboxinput");
 
-        $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + inp.value, function(data) {
+        $.getJSON('//nominatim.openstreetmap.org/search?format=json&limit=5&q=' + inp.value, function(data) {
             var items = [];
             // console.log(data);
             $.each(data, function(key, val) {
@@ -219,11 +235,15 @@
         $('#results').hide();
         keypress.combo("ctrl h", function(e) {
             e.preventDefault();
-            console.log("You pressed h");
             $('#cards').slideToggle('fast');
             if($('#results').is(':visible')) {
               $('#results').slideToggle('fast');
             }
+        });
+
+        keypress.combo("ctrl s", function(e) {
+            e.preventDefault();
+            $('#searchboxinput').focus();
         });
 
         // keypress.combo("1", function(e) {
