@@ -37,7 +37,7 @@
                 </tbody>
             </table>
         </form> 
-        <button class="searchbutton" aria-label="Search" jsaction="omnibox.search" tabindex="3"></button>
+        <button class="searchbutton" aria-label="Search" onclick="addr_search();" tabindex="3"></button>
     </div>
     <div class="widget-directions" tabindex="-1" style="display:none;outline:none"></div>
     <div id="rap-card" tabindex="-1">
@@ -150,14 +150,79 @@
     </div>
 </div>
 
+<div id="results" class="results-shadow" style="top: 0px; clip: rect(-10px 500px 2000px -10px); height: 116px; overflow: hidden;" tabindex="-1">
+</div>
 
 <div id="map"></div>
 <script>
     function setHeight(val) {
-        // $('#cards').height(val);
-        $('#cards').animate({height: val + 'px'}, 50);
+        $('#cards').animate({height: val + 'px'}, 50, function(){
+        $('#results').css('top', $('#cards').height() + 60 + 'px');  
+        });
+        
     }
+
+    function addr_search() {
+        var inp = document.getElementById("searchboxinput");
+
+        $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + inp.value, function(data) {
+            var items = [];
+            // console.log(data);
+            $.each(data, function(key, val) {
+                bb = val.boundingbox;
+                items.push("<li><a href='#' onclick='chooseAddr(" + bb[0] + ", " + bb[2] + ", " + bb[1] + ", " + bb[3]  + ", \"" + val.osm_type + "\");return false;'>" + val.display_name + '</a></li>');
+            });
+
+        $('#results').css('top', $('#cards').height() + 60 + 'px');
+        $('#results').empty();
+        $('#results').show();
+
+            if (items.length != 0) {
+                $('<ul/>', {
+                    'class': 'my-new-list',
+                    html: items.join('')
+                }).appendTo('#results');
+            } else {
+                $('<p>', { html: "Niets gevonden..." }).appendTo('#results');
+            }
+        });
+    }
+
+    function chooseAddr(lat1, lng1, lat2, lng2, osm_type) {
+      var loc1 = new L.LatLng(lat1, lng1);
+      var loc2 = new L.LatLng(lat2, lng2);
+      var bounds = new L.LatLngBounds(loc1, loc2);
+
+      // if (feature) {
+      //   map.removeLayer(feature);
+      // }
+      if (osm_type == "node") {
+        feature = L.circle( loc1, 25, {color: 'green', fill: false}).addTo(map);
+        map.fitBounds(bounds);
+        map.setZoom(18);
+      } else {
+        var loc3 = new L.LatLng(lat1, lng2);
+        var loc4 = new L.LatLng(lat2, lng1);
+
+        feature = L.polyline( [loc1, loc4, loc2, loc3, loc1], {color: 'red'}).addTo(map);
+        map.fitBounds(bounds);
+      }
+    }
+
     $(document).ready(function() {
+
+        $('#searchbox_form').submit(function(e) {
+          e.preventDefault();
+          addr_search();
+        })
+
+        $('#results').hide();
+        keypress.combo("command h", function(e) {
+            e.preventDefault();
+            console.log("You pressed command h");
+            $('#cards').slideToggle('fast');
+            $('#results').slideToggle('fast');
+        });
 
         // keypress.combo("1", function(e) {
         //     e.preventDefault();

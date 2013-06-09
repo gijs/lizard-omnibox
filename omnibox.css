@@ -74,8 +74,8 @@ div#omnibox {
 }
 
 .searchbutton:hover {
-    background-color: #357ae8;
-    background-image: -webkit-linear-gradient(top,#4d90fe,#357ae8);
+    background-color: #4d90fe;
+    background-image: -webkit-linear-gradient(top,#177d89,#115e67);
 }
 
 .searchbutton:focus {
@@ -272,14 +272,6 @@ div#omnibox {
 }
 
 
-#cards {
-    -webkit-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
-    -moz-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
-    -ms-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
-    -o-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
-    transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
-    opacity: 1;
-}
 .cards-shadow {
     box-shadow: 0 2px 6px rgba(0,0,0,0.3),0 4px 15px -5px rgba(0,0,0,0.0);
     -webkit-transition: all 200ms cubic-bezier(0.52,0,0.48,1);
@@ -301,7 +293,44 @@ div#omnibox {
     background: #FFF;
     margin-top: 11px;
     margin-left: 16px;
+    -webkit-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
+    -moz-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
+    -ms-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
+    -o-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
+    transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
+    opacity: 1;
 }
+
+.results-shadow {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3),0 4px 15px -5px rgba(0,0,0,0.0);
+    -webkit-transition: all 200ms cubic-bezier(0.52,0,0.48,1);
+    -moz-transition: all 200ms cubic-bezier(0.52,0,0.48,1);
+    -ms-transition: all 200ms cubic-bezier(0.52,0,0.48,1);
+    -o-transition: all 200ms cubic-bezier(0.52,0,0.48,1);
+    transition: all 200ms cubic-bezier(0.52,0,0.48,1);
+}
+
+#results {
+    color: #115e67;
+    -webkit-transform: translateZ(0);
+    padding: 0;
+    top: 0;
+    z-index: 9;
+    width: 400px;
+    outline: none;
+    position: absolute;
+    background: #FFF;
+    margin-top: 11px;
+    margin-left: 16px;
+    -webkit-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
+    -moz-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
+    -ms-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
+    -o-transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
+    transition: opacity 200ms cubic-bezier(0.52,0,0.48,1);
+    opacity: 1;
+}
+
+
 .nav a{
     color: #115e67;
 }
