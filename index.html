@@ -12,6 +12,7 @@
 <script src="js/keypress.js"></script>
 <script src="js/oridomi.js"></script>
 <script src="js/selectize.js"></script>
+<script src="js/highlight.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap-tabs.js"></script>
 <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
@@ -151,7 +152,7 @@
     </div>
 </div>
 
-<div id="results" class="results-shadow" style="top: 0px; clip: rect(-10px 500px 2000px -10px); height: 116px; overflow: hidden;" tabindex="-1">
+<div id="results" class="results-shadow" style="top: 0px; clip: rect(-10px 500px 2000px -10px); height: 116px; overflow-y: auto;" tabindex="-1">
 </div>
 
 <div id="map"></div>
@@ -165,7 +166,6 @@
     window.addEventListener('shake', shakeEventDidOccur, false);
 
     function shakeEventDidOccur() {
-        $('#searchboxinput').val("");
         $('#results').empty();
         $('#results').slideUp('fast');
         return true;
@@ -186,7 +186,8 @@
             // console.log(data);
             $.each(data, function(key, val) {
                 bb = val.boundingbox;
-                items.push("<li><a href='#' onclick='chooseAddr(" + bb[0] + ", " + bb[2] + ", " + bb[1] + ", " + bb[3]  + ", \"" + val.osm_type + "\");return false;'>" + val.display_name + '</a></li>');
+                var str = "<li><a href='#' onclick='chooseAddr(" + bb[0] + ", " + bb[2] + ", " + bb[1] + ", " + bb[3]  + ", \"" + val.osm_type + "\");return false;'>" + val.display_name + "</a></li>";
+                items.push(str);
             });
 
         if($('#cards').is(':visible')) {
@@ -232,6 +233,9 @@
 
     $(document).ready(function() {
         var firstload = true;
+
+
+
         $('#searchbox_form').submit(function(e) {
           e.preventDefault();
           addr_search();
